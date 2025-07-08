@@ -74,16 +74,8 @@ instance/tdgl_config.py: misc/tdgl_config.py instance
 instance:
 	mkdir -p $@
 
-wheel: $(VENV) mappacks
+wheel: $(VENV)
 	$(VENV)/bin/python -m pip install wheel && python setup.py bdist_wheel
-
-mappacks: $(RAGL_MAP_PACK)
-
-$(RAGL_MAP_PACK): $(VENV)
-	$(VENV)/bin/ora-mapstool $(RAGL_MAP_POOL) --pack $(RAGL_MAP_PACK)
-
-$(TDGL_MAP_PACK): $(VENV)
-	$(VENV)/bin/ora-mapstool $(TDGL_MAP_POOL) --pack $(TDGL_MAP_PACK)
 
 test: $(VENV)
 	$(VENV)/bin/pytest -v
@@ -99,4 +91,4 @@ $(VENV):
 	$(PYTHON) -m venv $@
 	$(VENV)/bin/python -m pip install -e .
 
-.PHONY: ladderdev initladderdev wheel clean mappacks ragldev initragldev test
+.PHONY: ladderdev initladderdev wheel clean ragldev initragldev test
