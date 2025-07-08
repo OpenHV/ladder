@@ -8,3 +8,5 @@ ladderweb/static/datatables.min.js
 ladderweb/static/jquery.min.js
 oraladder.egg-info
 venv
+__pycache__
+*.min.js
