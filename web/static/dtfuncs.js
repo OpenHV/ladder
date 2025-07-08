@@ -2,11 +2,7 @@ function replay_render(data, type, row, meta) {
 	if (data == undefined)
 		return ''
 	var replay = '<a href="' + data.url + '" title="Download">📥</a>'
-	if (!data.supports_analysis)
-		return replay
-	var info_url = 'https://dragunoff.github.io/OpenRA-replay-analytics/#/oraladder/' + data.hash
-	var info = '<a href="' + info_url + '" title="Information/Analysis">🔍</a>'
-	return replay + ' ' + info
+	return replay
 }
 
 function get_diff_html(diff) {
