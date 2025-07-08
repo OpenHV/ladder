@@ -15,13 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .rankings.trueskill import RankingTrueskill
 from .rankings.elo import RankingELO
 from .rankings.glicko import RankingGlicko
 
 
 ranking_systems = dict(
-    trueskill=RankingTrueskill,
     elo=RankingELO,
     glicko=RankingGlicko,
 )

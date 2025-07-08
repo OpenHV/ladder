@@ -11,7 +11,6 @@ setup(
         "flask",
         "numpy",
         "pyyaml",
-        "trueskill",
         "pytest",
     ],
     entry_points=dict(

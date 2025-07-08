@@ -247,7 +247,7 @@ def run():
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--database", default="db.sqlite3")
     parser.add_argument("-s", "--schema", default=op.join(op.dirname(__file__), "ladder.sql"))
-    parser.add_argument("-r", "--ranking", choices=ranking_systems.keys(), default="trueskill")
+    parser.add_argument("-r", "--ranking", choices=ranking_systems.keys(), default="elo")
     parser.add_argument("-p", "--period")
     parser.add_argument("--start")
     parser.add_argument("--end")
@@ -284,7 +284,7 @@ def initialize_periodic_databases():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--schema", default=op.join(op.dirname(__file__), "ladder.sql"))
-    parser.add_argument("-r", "--ranking", choices=ranking_systems.keys(), default="trueskill")
+    parser.add_argument("-r", "--ranking", choices=ranking_systems.keys(), default="openskill")
     parser.add_argument("--bans-file")
     parser.add_argument("-m", "--mod", default="hv")
     parser.add_argument("-y", "--year", type=int, default=datetime.date.today().year)
