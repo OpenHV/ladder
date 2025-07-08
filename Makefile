@@ -25,16 +25,16 @@ ladderdev: initladderdev
 initladderdev: $(VENV) $(LADDER_STATIC) $(LADDER_DATABASES)
 
 web/static/Chart.min.css:
-	$(CURL) -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/$(CHART_JS_VERSION)/Chart.min.css -o $@
+	$(CURL) -s -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/$(CHART_JS_VERSION)/Chart.min.css -o $@
 
 web/static/Chart.bundle.min.js:
-	$(CURL) -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/$(CHART_JS_VERSION)/Chart.bundle.min.js -o $@
+	$(CURL) -s -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/$(CHART_JS_VERSION)/Chart.bundle.min.js -o $@
 
 web/static/datatables.min.js:
-	$(CURL) -L https://cdn.datatables.net/v/dt/dt-$(DATATABLES_VERSION)/datatables.min.js -o $@
+	$(CURL) -s -L https://cdn.datatables.net/v/dt/dt-$(DATATABLES_VERSION)/datatables.min.js -o $@
 
 web/static/jquery.min.js:
-	$(CURL) -L https://code.jquery.com/jquery-$(JQUERY_VERSION).min.js -o $@
+	$(CURL) -s -L https://code.jquery.com/jquery-$(JQUERY_VERSION).min.js -o $@
 
 $(LADDER_DATABASES): instance
 	([ -f $@ ] ||  $(VENV)/bin/openhv-ladder -d $@)

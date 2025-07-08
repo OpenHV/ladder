@@ -26,10 +26,10 @@ ENV JQUERY_VERSION="3.6.0"
 ENV DATATABLES_VERSION="1.10.24"
 
 RUN cd web/static/ \
-    && curl -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/${CHART_JS_VERSION}/Chart.min.css -o Chart.min.css \
-    && curl -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/${CHART_JS_VERSION}/Chart.bundle.min.js -o Chart.bundle.min.js \
-    && curl -L https://cdn.datatables.net/v/dt/dt-${DATATABLES_VERSION}/datatables.min.js -o datatables.min.js \
-    && curl -L https://code.jquery.com/jquery-${JQUERY_VERSION}.min.js -o jquery.min.js
+    && curl -s -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/${CHART_JS_VERSION}/Chart.min.css -o Chart.min.css \
+    && curl -s -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/${CHART_JS_VERSION}/Chart.bundle.min.js -o Chart.bundle.min.js \
+    && curl -s -L https://cdn.datatables.net/v/dt/dt-${DATATABLES_VERSION}/datatables.min.js -o datatables.min.js \
+    && curl -s -L https://code.jquery.com/jquery-${JQUERY_VERSION}.min.js -o jquery.min.js
 
 RUN python3 -m venv venv/
 
