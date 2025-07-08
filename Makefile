@@ -1,4 +1,4 @@
-PYTHON ?= python3
+PYTHON ?= python3.9
 CURL   ?= curl
 VENV   ?= venv
 
