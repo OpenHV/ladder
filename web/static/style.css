@@ -1,20 +1,20 @@
 :root {
-	--color_bg: #171310;
-	--color_hl: #454545;
-	--color_thead: #6D2D27;
-	--color_row0: #383838;
-	--color_row1: #333333;
-	--color_text0: #E8E8E8;
+	--color_bg: rgb(57, 62, 64);
+	--color_hl: rgb(42, 45, 47);
+	--color_thead: #2e5793;
+	--color_row0: rgb(48, 52, 54);
+	--color_row1: rgb(30, 32, 35);
+	--color_text0: #ffffff;
 	--color_text1: #ffffff;
-	--color_light0: #D93D29;
-	--color_light1: #FFA78D;
-	--color_content: #272524;
+	--color_light0: #4870ad;
+	--color_light1: #4870ad;
+	--color_content: rgb(51, 55, 64);
 }
 
 html {
 	background-color: var(--color_bg);
 	color: var(--color_text0);
-	font-family: Monaco, Courier, monospace;
+	font-family: Poppins, arial, freesans, clean, sans-serif;
 	font-variant-ligatures: none;
 }
 
@@ -30,7 +30,7 @@ a {
 	text-decoration: none;
 }
 a:hover, a:focus, a:active {
-	color: var(--color_light1);
+	text-decoration: underline;
 }
 
 table {
@@ -114,9 +114,9 @@ img.avatar {
 	margin: 4px;
 }
 
-span.diffup   { font-weight: bold; color: #72ff72; }
+span.diffup { font-weight: bold; color: #72ff72; }
 span.diffdown { font-weight: bold; color: #ff1a1a; }
-span.diffup::after   { content: '▲'; }
+span.diffup::after { content: '▲'; }
 span.diffdown::after { content: '▼'; }
 span.ghost { color: darkgrey; font-style: italic; }
 
