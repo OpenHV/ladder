@@ -45,11 +45,5 @@ To update the database files, you can use `docker exec` as follows for the
 `ladder` container:
 
 ```sh
-docker exec -it ladder venv/bin/ora-ladder -d instance/db-ra-all.sqlite3 /replays
-```
-
-To update the RAGL container, run
-
-```sh
-docker exec -it ragl venv/bin/ora-ragl -d instance/db-ragl.sqlite3 /replays
+docker exec -it ladder venv/bin/ora-ladder -d instance/db-hv-all.sqlite3 /replays
 ```

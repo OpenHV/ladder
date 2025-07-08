@@ -8,7 +8,6 @@ It contains:
 - the backend tools (`ora-ladder`, `ora-replay`)
 - the game server configuration
 - detailed explanations on the setup
-- a work-in-progress RAGL integration
 
 For some context and history on the project, you can also read the following
 blog post: [Building a competitive ladder for OpenRA][blog-post].

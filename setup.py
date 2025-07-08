@@ -19,7 +19,6 @@ setup(
             "ora-ladder = laddertools.ladder:run",
             "ora-dbtool  = laddertools.ladder:initialize_periodic_databases",
             "ora-mapstool = laddertools.mapstool:run",
-            "ora-ragl   = laddertools.ragl:run",
             "ora-replay = laddertools.replay:run",
             "ora-srvwrap  = laddertools.srvwrap:run",
         ],
