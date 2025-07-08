@@ -47,6 +47,13 @@ _cfg = dict(
 )
 
 
+faction_name_map = {
+    "faction-random.name": "Random",
+    "faction-synapol.name": "Synapol",
+    "faction-yuruki.name": "Yuruki",
+}
+
+
 def _get_request_params() -> Tuple[str, str, str]:
     """Extract HTTP request parameters for endpoint/URL route, mod, period."""
     _allowed_mods = app.config["ALLOWED_MODS"]
@@ -454,7 +461,8 @@ def _get_player_faction_stats(db, profile_id):
     )
     hist = [(r["faction"], r["count"]) for r in cur]
     cur.close()
-    faction_names, faction_data = zip(*hist)
+    faction_names = [faction_name_map.get(name, name) for name, _ in hist]
+    faction_data = [count for _, count in hist]
     faction_colors = _get_colors(len(hist))
     return dict(
         names=list(faction_names),
@@ -622,7 +630,8 @@ def _get_global_faction_stats(db):
     if not hist:
         return [], [], []
 
-    faction_names, faction_data = zip(*hist)
+    faction_names = [faction_name_map.get(name, name) for name, _ in hist]
+    faction_data = [count for _, count in hist]
     faction_colors = _get_colors(len(hist))
     return dict(
         names=list(faction_names),
