@@ -45,5 +45,10 @@ The web services can be run in Docker containers. Please refer to the
 
 ```sh
 docker build -t openhv/ladder:latest -f Dockerfile .
+```
+
+```sh
 docker run --name ladder -dit -p 8001:8000 openhv/ladder:latest
 ```
+
+Runs at http://127.0.0.1:8001

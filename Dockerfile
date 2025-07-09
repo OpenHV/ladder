@@ -34,11 +34,6 @@ RUN python3 -m venv venv/
 
 RUN . venv/bin/activate && pip install gunicorn && pip install -e .
 
-RUN mkdir instance \
-    && for DB in "hv-all" "hv-2m";  \
-        do venv/bin/openhv-ladder -d "instance/db-${DB}.sqlite3";  \
-        done;
-
 CMD ["venv/bin/gunicorn", "-b", "0.0.0.0:8000", "web:app"]
 
 USER openhv
