@@ -36,6 +36,8 @@ web/static/datatables.min.js:
 web/static/jquery.min.js:
 	$(CURL) -s -L https://code.jquery.com/jquery-$(JQUERY_VERSION).min.js -o $@
 
+download-static: $(LADDER_STATIC)
+
 $(LADDER_DATABASES): instance
 	([ -f $@ ] ||  $(VENV)/bin/openhv-ladder -d $@)
 
@@ -58,4 +60,4 @@ $(VENV):
 	$(PYTHON) -m venv $@
 	$(VENV)/bin/python -m pip install -e .
 
-.PHONY: ladderdev initladderdev wheel clean test
+.PHONY: ladderdev initladderdev wheel clean test download-static

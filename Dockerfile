@@ -1,7 +1,8 @@
 FROM python:3.9-slim
 
 RUN useradd -m -s /bin/bash openhv \
-    && apt-get update && apt-get install -y --no-install-recommends curl \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends curl make \
     && apt-get clean
 
 RUN mkdir /home/openhv/ladder
@@ -14,21 +15,11 @@ ADD ./misc ./misc
 ADD ./MANIFEST.in ./
 ADD ./setup.py ./
 ADD ./LICENSE ./
+ADD ./Makefile ./
 
 RUN chown openhv: -R /home/openhv
 
-# https://github.com/chartjs/Chart.js/releases/latest
-ENV CHART_JS_VERSION="2.9.3"
-# https://github.com/jquery/jquery/releases/latest
-ENV JQUERY_VERSION="3.6.0"
-# https://github.com/DataTables/DataTables/releases/latest
-ENV DATATABLES_VERSION="1.10.24"
-
-RUN cd web/static/ \
-    && curl -s -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/${CHART_JS_VERSION}/Chart.min.css -o Chart.min.css \
-    && curl -s -L https://cdnjs.cloudflare.com/ajax/libs/Chart.js/${CHART_JS_VERSION}/Chart.bundle.min.js -o Chart.bundle.min.js \
-    && curl -s -L https://cdn.datatables.net/v/dt/dt-${DATATABLES_VERSION}/datatables.min.js -o datatables.min.js \
-    && curl -s -L https://code.jquery.com/jquery-${JQUERY_VERSION}.min.js -o jquery.min.js
+RUN make download-static
 
 RUN python3 -m venv venv/
 
