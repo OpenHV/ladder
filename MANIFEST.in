@@ -1,5 +1,6 @@
-include laddertools/ladder.sql
-include ladderweb/static/*.css
-include ladderweb/static/*.js
-include ladderweb/static/*.png
-include ladderweb/templates/*.html
+include tools/ladder.sql
+include web/static/*.css
+include web/static/*.js
+include web/static/*.png
+include web/templates/*.html
+

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Information{% endblock %}
+
+{% block content %}
+<h2 id="essentials">The essentials</h2>
+<dl>
+	<dt>Compatible game version:</dt><dd><a href="{{ mod.url }}">{{ mod.release }}</a></dd>
+	<dt>Game server instances:</dt><dd><strong>Competitive 1v1 Ladder</strong>
+	<br>Any games played on one of these servers will be recorded for the OpenHV Ladder ranking.
+        </dd>
+	<dt>Current period:</dt><dd>from <strong>{{ period_info.start }}</strong> to <strong>{{ period_info.end }}</strong>
+	    ({{ period_info.duration }})</dd>
+	<dt>Ranking algorithm:</dt><dd><a href="https://en.wikipedia.org/wiki/TrueSkill">Trueskill™</a></dd>
+	<dt>Source code:</dt><dd><a href="https://github.com/suhrm1/oraladder">oraladder on Github</a></dd>
+	<dt>Contact:</dt>
+	    <dd>You can reach the admin team through the official <a href="https://discord.openhv.net/">OpenHV Discord server</a></dd>
+</dl>
+<h2 id="faq">Frequently Asked Questions</h2>
+<dl id=faq>
+	<dt>How can I play on the ladder?</dt>
+	<dd>
+		Register an OpenRA account on the <a href="https://forum.openra.net/">Community Forum</a>
+		and link it with your in-game player profile. This will allow you to
+		join the ladder game server lobbies (see <strong>The
+		essentials</strong> section). Every game you play on these servers will
+		automatically be recorded and your score adjusted on this website within
+		minutes.<br>
+	</dd>
+
+	<dt>
+		The opponent is bad mannered and just disconnected: do I have
+		to destroy all their structures to register a win?
+	</dt>
+	<dd>
+		No, just leave the game, but <strong>do not surrender</strong>,
+		otherwise it will be registered as a loss for you.
+	</dd>
+
+	<dt>How do I get better at the game?</dt>
+	<dd>
+		Read <a href="https://git.libregaming.org/Rampoina/OpenHVGuide#openhv-guide">
+			Rampoina's OpenHV guide</a>
+		You may also want to join the <a href="https://discord.openhv.net">
+			Official OpenHV Discord</a> and ask for games in the <i>Play</i> channel.
+	</dd>
+
+	<dt>
+		How do I face more players in my skill class?
+	</dt>
+	<dd>
+		Unfortunately, there is currently no automatic matchmaking
+		system and the community is probably still too small for a
+		balanced experience of such a system.
+	</dd>
+
+	<dt>When does the ladder reset?</dt>
+	<dd>
+		You have a 2-months reset of the ladder (see the "This period"
+		button on most pages). The "All time" representation is
+		currently the persistent version of the ladder with all the
+		records.
+	</dd>
+
+	<dt>Why did I earn points by losing?</dt>
+	<dd>
+		You probably played a strong player, and the ranking system
+		doesn't have enough information to make a good guess at your
+		level yet. The variation in your score will stabilize the more
+		you play, and become more predictable as your level becomes
+		more certain to the system.
+	</dd>
+
+	<dt>Why does my name not show up in the rankings?</dt>
+	<dd>
+		The scoreboards currently only display players with a <i>positive</i> rating
+		assigned by the algorithm. Check if your games show up in the
+		"latest games" section. If you click on your player profile name, you can check
+		the rating assigned to your profile. If you are actually ranked with a negative
+		rating, keep on playing. As soon as you take your first victories, the rating
+		will rise and your journey on the ladder begins.
+	</dd>
+
+	<dt>Where can I report abuse?</dt>
+	<dd>
+		The ladder has no control over the accounts of players.
+		Contacting the OpenRA forum admins is probably your best bet.
+		If their account ends up being disabled, all their replays will
+		go away from this website, and the scores adjusted
+		automatically as if they never existed.
+	</dd>
+
+	<dt>How do I playback old replays?</dt>
+	<dd>
+		First, you probably need the OpenHV release that was used to
+		generate the replay.
+	</dd>
+</dl>
+
+{% endblock %}

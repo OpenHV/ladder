@@ -1,0 +1,40 @@
+<!doctype html>
+<head>
+	<title>OpenHV 1v1 Ladder - {% block title %}{% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='Chart.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='Chart.bundle.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='datatables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='dtfuncs.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='nav.js') }}"></script>
+</head>
+<header>
+	<h1>OpenHV 1v1 Ladder</h1>
+</header>
+ <div class="topnav" id="main_menu">
+{%- for menu_id, pages in navbar_menu.items() %}
+	 {% if menu_id != "pages" %}
+	  <div class="dropdown">
+		<button class="dropbtn" >&#9660; Season
+		  <i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-content">
+	{% endif %}
+		{%- for menu_entry in pages %}
+			<a class="{% if menu_entry.active %}active{% endif %}{%- if menu_entry.icon %} with_icon{% endif %}"
+				{%- if menu_entry.icon %} style="background-image:url('{{ menu_entry.icon }}')"{% endif %}
+				href="{{ menu_entry.url }}">{{ menu_entry.caption }}</a>
+		{%- endfor %}
+
+	 {% if menu_id != "pages" %}
+  </div>
+  </div>
+	{% endif %}
+{%- endfor %}
+  <a href="javascript:void(0);" class="icon" onclick="toggle_navbar_menu()">&#9776;</a>
+</div>
+{% block content %}{% endblock %}

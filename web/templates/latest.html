@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Latest games{% endblock %}
+
+{% block content %}
+{% if period_info %}
+	<div>
+		<p>
+			<strong>Selected Period</strong>: from <strong>{{ period_info.start }}</strong>
+			to <strong>{{ period_info.end }}</strong> ({{ period_info.duration }})
+		</p>
+	</div>
+{% endif %}
+<table id="latest-table">
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Map</th>
+			<th>Victorious</th>
+			<th>Defeated</th>
+			<th>Duration</th>
+			<th>Replay</th>
+		</tr>
+	</thead>
+</table>
+<script>
+$(document).ready(
+	function () {
+		$('#latest-table').DataTable({
+			ajax: { url: "{{ ajax_url|safe }}", dataSrc:"" },
+			columns: [
+				{ data: 'date' },
+				{ data: 'map', className: 'map' },
+				{ data: 'p0', className: 'player', render: player_with_diff_render },
+				{ data: 'p1', className: 'player', render: player_with_diff_render },
+				{ data: 'duration' },
+				{ data: 'replay', render: replay_render },
+			],
+			bSort: false,
+		});
+	}
+);
+</script>
+{% endblock %}

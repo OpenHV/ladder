@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='oraladder',
+    name='openhv-ladder',
     version='0.1',
     packages=find_packages(),
     zip_safe=False,
@@ -16,11 +16,9 @@ setup(
     ],
     entry_points=dict(
         console_scripts=[
-            "ora-ladder = laddertools.ladder:run",
-            "ora-dbtool  = laddertools.ladder:initialize_periodic_databases",
-            "ora-mapstool = laddertools.mapstool:run",
-            "ora-replay = laddertools.replay:run",
-            "ora-srvwrap  = laddertools.srvwrap:run",
+            "openhv-ladder = tools.ladder:run",
+            "ora-dbtool  = tools.ladder:initialize_periodic_databases",
+            "openhv-replay = tools.replay:run",
         ],
     ),
 )

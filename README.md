@@ -1,11 +1,11 @@
-# OpenRA ladder
+# OpenHV ladder
 
-This repository contains all the sources used by the OpenRA community
-competitive 1v1 ladder hosted on [oraladder.net](http://oraladder.net).
+This repository contains all the sources used by the OpenHV community
+competitive 1v1 ladder hosted on [ladder.openhv.net](http://ladder.openhv.net).
 
 It contains:
 - the web frontend written in Flask (Python)
-- the backend tools (`ora-ladder`, `ora-replay`)
+- the backend tools (`openhv-ladder`, `openhv-replay`)
 - the game server configuration
 - detailed explanations on the setup
 
@@ -27,18 +27,18 @@ The site should be accessible through http://127.0.0.1:5000 and any change in
 the sources will be reflected there immediately.
 
 Initially the database is empty so what's being displayed has little to no
-interest. We can fill it using the `ora-ladder` backend command:
+interest. We can fill it using the `openhv-ladder` backend command:
 
 ```sh
 # Enter the virtualenv
 . venv/bin/activate
 
-# Create the 2 databases (all times and periodic) with your local RA replays
-ora-ladder -d db-ra-all.sqlite3 ~/.config/openra/Replays/ra
-ora-ladder -d db-ra-2m.sqlite3 -p 2m ~/.config/openra/Replays/ra
+# Create the 2 databases (all times and periodic) with your local HV replays
+openhv-ladder -d db-hv-all.sqlite3 ~/.config/openra/Replays/hv
+openhv-ladder -d db-hv-2m.sqlite3 -p 2m ~/.config/openra/Replays/hv
 
 # If everything went well, update the DB of the website atomically
-cp db-ra-all.sqlite3 db-ra-2m.sqlite3 instance/
+cp db-hv-all.sqlite3 db-hv-2m.sqlite3 instance/
 ```
 
 ### Docker
@@ -48,7 +48,7 @@ The web services can be run in Docker containers. Please refer to the
 
 ## Architecture
 
-The general architecture used on oraladder.net is pretty simple:
+The general architecture used on ladder.openhv.net is pretty simple:
 
 ![Architecture](misc/architecture.png)
 
@@ -92,7 +92,7 @@ useradd -m web
 
 # allow the web to read the replays
 usermod -a -G ora web
-chmod g+rx /home/ora
+chmod g+rx /home/openhv
 ```
 
 ### Game server instances
@@ -113,41 +113,6 @@ python -m venv venv
 pip install oraladder-*-py3-none-any.whl
 ```
 
-The game server instances need a map pool. Map pool examples can be found in
-`misc/map-pools/`.
-
-`ora-srvwrap` (available in the venv) is a helper to bootstrap (if needed) and
-run the game server with competitive settings. This tool does a lot of
-things:
-1. it fetches the OpenRA sources (if needed) at the specified version and build
-   them
-2. it creates an isolated game server instance directory in which these sources
-   are copied
-3. it patches the specified mod with locked competitive settings
-4. it downloads all the maps of the map pool if not available in its cache
-5. it drops all the internal maps and replace them with the previously
-   downloaded map pool
-6. it finally runs the game server instance on a port derived from the
-   specified argument
-
-Assuming `misc/map-pools` was uploaded in the home directory, here is an
-example for running 3 game server instances:
-
-```sh
-ora-srvwrap map-pools/ladder.maps --label 'My Competitive 1v1 Ladder Server {id}' --baseport 10100 --basewkdir srv-ladder --instance-id 0
-ora-srvwrap map-pools/ladder.maps --label 'My Competitive 1v1 Ladder Server {id}' --baseport 10100 --basewkdir srv-ladder --instance-id 1
-ora-srvwrap map-pools/ladder.maps --label 'My Competitive 1v1 Ladder Server {id}' --baseport 10100 --basewkdir srv-ladder --instance-id 2
-```
-
-**Note**: a different shell will be required for each since this is not running
-in background.
-
-A `motd` template file can also be specified with `--motd-file`. See
-`ora-srvwrap --help` for more information.
-
-With our previous example, each instance will have their replays recording
-stored into `~/srv-ladder/instance-*/support_dir/Replays`.
-
 
 ### Backend
 
@@ -166,17 +131,17 @@ python -m venv venv
 pip install oraladder-*-py3-none-any.whl
 
 # Create initial empty databases
-mkdir -p venv/var/ladderweb-instance
-ora-ladder -d venv/var/ladderweb-instance/db-ra-all.sqlite3  # all-time DB
-ora-ladder -d venv/var/ladderweb-instance/db-ra-2m.sqlite3 -p 2m  # periodic DB
+mkdir -p venv/var/web-instance
+openhv-ladder -d venv/var/web-instance/db-hv-all.sqlite3  # all-time DB
+openhv-ladder -d venv/var/web-instance/db-hv-2m.sqlite3 -p 2m  # periodic DB
 
 # Create a useful DB update script
 cat <<EOF > ~/update-ladderdb.sh
 #!/bin/sh
 set -xeu
-~/venv/bin/ora-ladder -d db-ra-all.sqlite3      /home/ora/srv-ladder/instance-*/support_dir/Replays/
-~/venv/bin/ora-ladder -d db-ra-2m.sqlite3 -p 2m /home/ora/srv-ladder/instance-*/support_dir/Replays/
-cp db-ra-all.sqlite3 db-ra-2m.sqlite3 /home/web/venv/var/ladderweb-instance
+~/venv/bin/openhv-ladder -d db-hv-all.sqlite3      /home/openhv/srv-ladder/instance-*/support_dir/Replays/
+~/venv/bin/openhv-ladder -d db-hv-2m.sqlite3 -p 2m /home/openhv/srv-ladder/instance-*/support_dir/Replays/
+cp db-hv-all.sqlite3 db-hv-2m.sqlite3 /home/web/venv/var/web-instance
 EOF
 chmod +x ~/update-ladderdb.sh
 ```
@@ -189,7 +154,7 @@ The last step is to setup a crontab to update the database regularly; in
 ```
 
 This will update the database every 5 minutes. And every day, we remove the
-cached `db-ra-all.sqlite3` (and `db-ra-2m.sqlite3`) so that the next update
+cached `db-hv-all.sqlite3` (and `db-hv-2m.sqlite3`) so that the next update
 causes a full reconstruction of the databases. This is an arbitrary trade-off
 to avoid spamming OpenRA user account service, and still get relatively
 up-to-date information displayed.
@@ -208,10 +173,10 @@ pip install gunicorn
 
 # Generate a secret key
 # Following https://flask.palletsprojects.com/en/1.1.x/tutorial/deploy/#configure-the-secret-key
-python -c 'import os;print(f"SECRET_KEY = {repr(os.urandom(16))}")' > ~/venv/var/ladderweb-instance/config.py
+python -c 'import os;print(f"SECRET_KEY = {repr(os.urandom(16))}")' > ~/venv/var/web-instance/config.py
 
 # Start the service (listening on 127.0.0.1:8000)
-gunicorn ladderweb:app
+gunicorn web:app
 ```
 
 Now that the server is listening in local, we can use `nginx` to expose it to

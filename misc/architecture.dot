@@ -3,7 +3,7 @@ digraph {
 
   node[style=filled,shape=box,color="#c92d19",fontcolor="#ffffff",fontsize=10,fontname=Monospace]
   gameserver         [label="OpenRA Game server(s)"]
-  backend            [label="Backend\n(ora-ladder)"]
+  backend            [label="Backend\n(openhv-ladder)"]
   frontend           [label="Frontend\n(web)"]
   openrauseraccounts [label="OpenRA user accounts",color="#4d3d3d"]
 

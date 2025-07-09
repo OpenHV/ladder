@@ -2,11 +2,11 @@
 build
 dist
 instance
-ladderweb/static/Chart.bundle.min.js
-ladderweb/static/Chart.min.css
-ladderweb/static/datatables.min.js
-ladderweb/static/jquery.min.js
-oraladder.egg-info
+web/static/Chart.bundle.min.js
+web/static/Chart.min.css
+web/static/datatables.min.js
+web/static/jquery.min.js
+*.egg-info
 venv
 __pycache__
 *.min.js

@@ -2,7 +2,7 @@
 
 The entire architecture can be set up in containerized environment using Docker images.
 
-The following instructions only cover the Ladder and tournament website services. If you want to run an OpenRA game server with additional convenience features, check out the [game server docs](./ladder_server/README.md).
+The following instructions only cover the Ladder and tournament website services. If you want to run an OpenHV game server with additional convenience features, check out the [game server docs](./ladder_server/README.md).
 
 These instructions expect you to know the basics of Docker and the Docker CLI.
 
@@ -13,15 +13,8 @@ is packaged with this repository. Run the shell script from the repository root
 directory:
 
 ```sh
-chmod +x .docker/build.sh
 .docker/build.sh
 ```
-
-The script builds three Docker images:
-
-1. `oraladder/base:latest`, that collects all project files and dependencies
-2. `oraladder/ragl:latest`, that initializes the RAGL web server
-3. `oraladder/ladder:latest`, that initializes the Ladder web server
 
 ### Run
 
@@ -30,12 +23,11 @@ Export the path to your replay directory into the environment variable
 commands:
 
 ```sh
-docker run --rm --name ragl -dit -p 8000:8000 -v $REPLAY_DIRECTORY:/replays/:ro oraladder/ragl:latest
+export REPLAY_DIRECTORY=$HOME/.config/openra/Replays/
+docker run --rm --name ladder -dit -p 8001:8000 -v $REPLAY_DIRECTORY:/replays/:ro openhv/ladder:latest
 ```
 
-```sh
-docker run --rm --name ladder -dit -p 8001:8000 -v $REPLAY_DIRECTORY:/replays/:ro oraladder/ladder:latest
-```
+Starts at http://127.0.0.1:8001
 
 NB: These containers will be removed entirely when stopped due to the `--rm` flag.
 
@@ -45,5 +37,5 @@ To update the database files, you can use `docker exec` as follows for the
 `ladder` container:
 
 ```sh
-docker exec -it ladder venv/bin/ora-ladder -d instance/db-hv-all.sqlite3 /replays
+docker exec -it ladder venv/bin/openhv-ladder -d instance/db-hv-all.sqlite3 /replays
 ```
