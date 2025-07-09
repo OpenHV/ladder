@@ -14,6 +14,13 @@ blog post: [Building a competitive ladder for OpenRA][blog-post].
 
 [blog-post]: http://blog.pkh.me/p/28-building-a-competitive-ladder-for-openra.html
 
+## Deployment
+The web services can be run in Docker containers. Please refer to the
+[Wiki](https://github.com/OpenHV/ladder/wiki) for more information.
+
+```sh
+docker build -t openhv/ladder:latest -f Dockerfile .
+```
 
 ## Developers
 
@@ -40,11 +47,6 @@ openhv-ladder -d db-hv-2m.sqlite3 -p 2m ~/.config/openra/Replays/hv
 # If everything went well, update the DB of the website atomically
 cp db-hv-all.sqlite3 db-hv-2m.sqlite3 instance/
 ```
-
-### Docker
-
-The web services can be run in Docker containers. Please refer to the
-[Docker instructions](.docker/README.md) for more information.
 
 ## Production infrastructure
 
