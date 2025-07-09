@@ -46,37 +46,6 @@ cp db-hv-all.sqlite3 db-hv-2m.sqlite3 instance/
 The web services can be run in Docker containers. Please refer to the
 [Docker instructions](.docker/README.md) for more information.
 
-## Architecture
-
-The general architecture used on ladder.openhv.net is pretty simple:
-
-![Architecture](misc/architecture.png)
-
-The game server instances are configured to record the replays. Then on a
-regular basis, the backend parses them to find the outcomes, identify the
-players, and finally update their rank.  During the process of ranking, the
-backend also has to query the OpenRA user accounts API (external) to identify
-the players and obtain more information (the display name typically). Finally,
-the web frontend is just a dumb way of displaying the information contained in
-the database.
-
-Each brick can technically be separated. For example, game servers can be on
-other machines, and replay files synchronized for the backend to read. This
-means adding matches from other sources is just about synchronizing files.
-Similarly, the website could be hosted elsewhere (even thought it might not
-make much sense). This also means the backend could easily be adjusted to craft
-the data in another form for a different frontend.
-
-Another handy aspect of this approach is that an admin doesn't need any special
-interface for maintainance: only the replays have to be managed. They can be
-arbitrarily organized into folders since the backend searches through all the
-configured paths. To remove a match, (re)moving the file and make sure the DB
-is reset is enough.
-
-Last but not least, since the replays contain pretty much all information about
-the matches, additional statistics and analysis could be added in the future.
-
-
 ## Production infrastructure
 
 In production, the setup requires a bit more work than in development mode.
