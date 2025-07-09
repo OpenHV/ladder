@@ -1,7 +1,7 @@
 FROM python:3.9-slim
 
 RUN useradd -m -s /bin/bash openhv \
-    && apt-get update && apt-get install -y --no-install-recommends make curl \
+    && apt-get update && apt-get install -y --no-install-recommends curl \
     && apt-get clean
 
 RUN mkdir /home/openhv/ladder
@@ -11,7 +11,6 @@ WORKDIR /home/openhv/ladder
 ADD ./tools ./tools
 ADD ./web ./web
 ADD ./misc ./misc
-ADD ./Makefile ./
 ADD ./MANIFEST.in ./
 ADD ./setup.py ./
 ADD ./LICENSE ./
