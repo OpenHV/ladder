@@ -11,7 +11,6 @@ WORKDIR /home/openhv/ladder
 
 ADD ./tools ./tools
 ADD ./web ./web
-ADD ./misc ./misc
 ADD ./MANIFEST.in ./
 ADD ./setup.py ./
 ADD ./LICENSE ./
